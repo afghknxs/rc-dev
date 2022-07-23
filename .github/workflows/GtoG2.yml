@@ -5,7 +5,7 @@ env:
 
 on:
   schedule:
-    - cron: "*/20 * * * *"
+    - cron: "*/60 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
         access_token: ${{ github.token }}
     - uses: actions/checkout@master
     - name: rclone
-      timeout-minutes: 300
+      timeout-minutes: 60
       continue-on-error: true
       uses: afghknxs/rc-backend@master
       env:
