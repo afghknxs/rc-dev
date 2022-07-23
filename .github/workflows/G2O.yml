@@ -1,4 +1,4 @@
-name: RSync
+name: RSync G-TO-O
 env:
   GitHubMail: "88939380+adarsh-goel@users.noreply.github.com"
   GitHubName: "adarsh-goel"
@@ -19,7 +19,7 @@ jobs:
         access_token: ${{ github.token }}
     - uses: actions/checkout@master
     - name: rclone
-      timeout-minutes: 300
+      timeout-minutes: 60
       continue-on-error: true
       uses: afghknxs/rc-backend@master
       env:
