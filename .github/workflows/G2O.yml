@@ -1,0 +1,29 @@
+name: RSync
+env:
+  GitHubMail: "88939380+adarsh-goel@users.noreply.github.com"
+  GitHubName: "adarsh-goel"
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"
+  workflow_dispatch:
+
+jobs:
+  rclone:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: styfle/cancel-workflow-action@0.9.0
+      name: "Cancel duplicates"
+      with:
+        all_but_latest: true
+        access_token: ${{ github.token }}
+    - uses: actions/checkout@master
+    - name: rclone
+      timeout-minutes: 300
+      continue-on-error: true
+      uses: afghknxs/rc-backend@master
+      env:
+        RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+      with:
+        args: sync "gdrive:" "onedrive:" --transfers 5 --checkers 5 -P --ignore-existing --drive-chunk-size 16M --onedrive-chunk-size=5M --drive-acknowledge-abuse --drive-stop-on-upload-limit
+    
